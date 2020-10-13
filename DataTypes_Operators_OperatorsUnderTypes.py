@@ -51,8 +51,12 @@ last_name = input("Input your last name: ")
 print(f"Hello {last_name} {first_name}")
 
 # 7. Write a Python program to accept a filename from the user to print the extension of that. (With Regexp)
+import re
 
-filename = input("Enter a filename")
+filename = input('Enter a filename: ')
+pattern = r'\W'
+result = re.split(pattern, filename)
+print(f'filename = "{result[0]}" and file extension = "{result[1]}"')
 
 
 # 8. Write a Python program to check three numbers and return true if one or more of them are small.
@@ -445,8 +449,7 @@ def check(numbers):
     for number in numbers:
         total += number
     print("Total sum of {0} = {1}".format("".join(map(str, numbers)), total))
-    set_numbers = set(numbers)
-    if len(set_numbers) != len(numbers):
+    if len(set(numbers)) != len(numbers):
         print("Contains duplicates")
     if sum(numbers[:2]) == sum(numbers[2:]):
         print(f"Sum of first pair {numbers[:2]} equals Sum of second pair {numbers[2:]}")
