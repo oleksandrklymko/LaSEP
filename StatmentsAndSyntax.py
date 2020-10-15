@@ -181,25 +181,19 @@ def check_if_appears(numbers, number):
 
 # 24. Write a Python program to check whether a given array contains a 3 next to a 3 or a 5 next to a 5, but not both.
 
-def contains_numbers(numbers):
-    if 3 in numbers and 5 in numbers:
-        num1_index = numbers.index(3)
-        num2_index = numbers.index(5)
-        is_next_three = 3 == numbers[num1_index + 1]
-        is_next_five = 5 == numbers[num2_index + 1]
-        if is_next_three and is_next_five:
-            return False
-        elif is_next_three or is_next_five:
-            return True
-    elif 3 in numbers:
-        num1_index = numbers.index(3)
-        is_next_three = 3 == numbers[num1_index + 1]
-        return is_next_three
-    elif 5 in numbers:
-        num2_index = numbers.index(5)
-        is_next_five = 5 == numbers[num2_index + 1]
-        return is_next_five
-    return False
+def contains_numbers(numbers, num1=3, num2=5):
+    is_next_three, is_next_five = None, None
+    if num1 in numbers:
+        num1_index = numbers.index(num1)
+        is_next_three = num1 == numbers[num1_index + 1]
+    if num2 in numbers:
+        num2_index = numbers.index(num2)
+        is_next_five = num2 == numbers[num2_index + 1]
+
+    if is_next_three and is_next_five:
+        return False
+
+    return is_next_three or is_next_five
 
 
 # 25. Write a Python program to check whether a given array of integers contains two 6's next to each other,
@@ -335,13 +329,13 @@ def find_smallest_nonpaired(numbers):
 
 def right_shift(numbers, k):
     print("Right Shift: ")
-    for i in range(k):
+    for _ in range(k):
         return numbers[len(numbers) - k:] + numbers[:len(numbers) - k]
 
 
 def left_shift(numbers, k):
     print("Left Shift: ")
-    for i in range(k):
+    for _ in range(k):
         return numbers[k:] + numbers[:k]
 
 
