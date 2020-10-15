@@ -66,9 +66,6 @@ def remove_blank_elements(elements):
     return list(filter(lambda x: x, elements))
 
 
-print(remove_blank_elements(['Bla', '', 'Meh', '']))
-
-
 # 9. Write a Python program to split a delimited string into an array.
 
 def split_string(string):
@@ -184,12 +181,24 @@ def check_if_appears(numbers, number):
 # 24. Write a Python program to check whether a given array contains a 3 next to a 3 or a 5 next to a 5, but not both.
 
 def contains_numbers(numbers):
-    index_of_three = numbers.index(3)
-    index_of_five = numbers.index(5)
-    return (numbers[index_of_three] == numbers[index_of_three + 1]
-            and numbers[index_of_five] != numbers[index_of_five + 1]) \
-           or (numbers[index_of_three] != numbers[index_of_three + 1]
-               and numbers[index_of_five] == numbers[index_of_five + 1])
+    if 3 in numbers and 5 in numbers:
+        index_of_three = numbers.index(3)
+        index_of_five = numbers.index(5)
+        check_if_three_is_near_three = 3 in numbers[index_of_three + 1:] and 3 == numbers[index_of_three + 1]
+        check_if_five_is_near_five = 5 in numbers[index_of_five + 1:] and 5 == numbers[index_of_five + 1]
+        if check_if_three_is_near_three and check_if_five_is_near_five:
+            return False
+        elif check_if_three_is_near_three or check_if_five_is_near_five:
+            return True
+    elif 3 in numbers:
+        index_of_three = numbers.index(3)
+        check_if_three_is_near_three = 3 in numbers[index_of_three + 1:] and 3 == numbers[index_of_three + 1]
+        return check_if_three_is_near_three
+    elif 5 in numbers:
+        index_of_five = numbers.index(5)
+        check_if_five_is_near_five = 5 in numbers[index_of_five + 1:] and 5 == numbers[index_of_five + 1]
+        return check_if_five_is_near_five
+    return False
 
 
 # 25. Write a Python program to check whether a given array of integers contains two 6's next to each other,
@@ -204,7 +213,7 @@ def contains_number(numbers):
 # later in a given array of integers.
 
 def check_in_array(numbers):
-    if 3 in numbers[numbers.index(2):]:
+    if len(numbers) >= 2 and 3 in numbers[numbers.index(2):]:
         return True
     return False
 
@@ -226,13 +235,9 @@ def find_most_occurred(numbers):
 # 29. Write a Python program to check whether all items are identical in a given array.
 
 def check_if_identical(numbers):
-    first_number = numbers[0]
     print(f'Original array: {numbers}')
     print('If all items identical?')
-    for number in numbers:
-        if number != first_number:
-            return False
-    return True
+    return len(set(numbers)) == 1
 
 
 # 30. Write a Python program to search items start with specified string of a given array.
@@ -257,21 +262,14 @@ def reverse_iterate(numbers):
 def iterate_over_n_elements(numbers, n):
     print(f'Original array: {numbers}')
     print(f'First {n} elements')
-    return [numbers[i] for i in range(n)]
+    return numbers[:n]
 
 
 # 33. Write a Python program to sort an given array of strings by length.
 
 def sort_by_length(strings):
-    new_string = []
-    while strings:
-        string_len = (strings[0], len(strings[0]))
-        for string in strings:
-            if len(string) < string_len[1]:
-                string_len = (string, len(string))
-        new_string.append(string_len[0])
-        strings.remove(string_len[0])
-    return new_string
+    strings.sort(key=lambda string: len(string))
+    return strings
 
 
 # 34. Compress the array, and removing all 0 from it and fill in the elements freed on the right side with the values -1
@@ -303,11 +301,9 @@ def convert_array(numbers):
 # 36. Write a program where a need to counts the number of times a number appear in an array.
 
 def count_numbers(numbers):
-    counted_numbers = []
-    for number in numbers:
-        if number not in counted_numbers:
-            counted_numbers.append(number)
-            print(f"{number} appears - {numbers.count(number)} times.")
+    counted_numbers = {k: numbers.count(k) for k in numbers}
+    for k, v in counted_numbers.items():
+        print(f"{k} appears - {v} times.")
 
 
 # 37. In a two-dimensional array of order M and N, swap the specified columns.
