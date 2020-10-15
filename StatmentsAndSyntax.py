@@ -118,6 +118,7 @@ def check_integers(numbers):
     return numbers.count(3) == 2 or numbers.count(5) == 2
 
 
+
 # 15. Write a Python program to find the largest odd value from a given array
 
 def find_largest(numbers):
@@ -182,22 +183,22 @@ def check_if_appears(numbers, number):
 
 def contains_numbers(numbers):
     if 3 in numbers and 5 in numbers:
-        index_of_three = numbers.index(3)
-        index_of_five = numbers.index(5)
-        check_if_three_is_near_three = 3 in numbers[index_of_three + 1:] and 3 == numbers[index_of_three + 1]
-        check_if_five_is_near_five = 5 in numbers[index_of_five + 1:] and 5 == numbers[index_of_five + 1]
-        if check_if_three_is_near_three and check_if_five_is_near_five:
+        num1_index = numbers.index(3)
+        num2_index = numbers.index(5)
+        is_next_three = 3 == numbers[num1_index + 1]
+        is_next_five = 5 == numbers[num2_index + 1]
+        if is_next_three and is_next_five:
             return False
-        elif check_if_three_is_near_three or check_if_five_is_near_five:
+        elif is_next_three or is_next_five:
             return True
     elif 3 in numbers:
-        index_of_three = numbers.index(3)
-        check_if_three_is_near_three = 3 in numbers[index_of_three + 1:] and 3 == numbers[index_of_three + 1]
-        return check_if_three_is_near_three
+        num1_index = numbers.index(3)
+        is_next_three = 3 == numbers[num1_index + 1]
+        return is_next_three
     elif 5 in numbers:
-        index_of_five = numbers.index(5)
-        check_if_five_is_near_five = 5 in numbers[index_of_five + 1:] and 5 == numbers[index_of_five + 1]
-        return check_if_five_is_near_five
+        num2_index = numbers.index(5)
+        is_next_five = 5 == numbers[num2_index + 1]
+        return is_next_five
     return False
 
 
