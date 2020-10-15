@@ -10,7 +10,7 @@ def check_value(value, numbers):
 
 
 def check_number(numbers):
-    if len(numbers) >= 1:
+    if numbers:
         return numbers[0] == 7 and numbers[-1] == 7
 
 
@@ -29,7 +29,7 @@ def two_random(numbers, number_of_elements):
 # The array length must be 1 or more.
 
 def check_first_and_last(numbers):
-    if len(numbers) >= 1:
+    if numbers:
         return numbers[0] == numbers[-1]
 
 
@@ -37,21 +37,23 @@ def check_first_and_last(numbers):
 
 def sum_of_elements(numbers):
     print(f'Original array:\n{numbers}')
-    print(f'Sum of the values of the above array:\n{sum(numbers)}')
+    print('Sum of the values of the above array:')
+    return sum(numbers)
 
 
 # 6. Write a Python program to remove duplicate elements from a given array.
 
 def remove_duplicate(numbers):
     print(f'Original array: {numbers}')
-    print(f'Array with unique elements: {set(numbers)}')
+    print('Array with unique elements:')
+    return set(numbers)
 
 
 # 7. Write a Python program to check two given arrays of integers and test if they have the same first element
 # or they have the same last element. Both arrays length must be 1 or more.
 
 def check_same(numbers1, numbers2):
-    if len(numbers1) >= 1 and len(numbers2) >= 1:
+    if numbers1 and numbers2:
         return numbers1[0] == numbers2[0] or numbers1[-1] == numbers2[-1]
 
 
@@ -60,8 +62,11 @@ def check_same(numbers1, numbers2):
 
 def remove_blank_elements(elements):
     print(f'Original array: {elements}')
-    elements = [element for element in elements if element]
-    print(f'Remove a blank element from above array: {elements}')
+    print('Remove a blank element from above array:')
+    return list(filter(lambda x: x, elements))
+
+
+print(remove_blank_elements(['Bla', '', 'Meh', '']))
 
 
 # 9. Write a Python program to split a delimited string into an array.
@@ -113,7 +118,7 @@ def concat(numbers1, numbers2):
 
 
 def check_integers(numbers):
-    return (numbers.count(3) or numbers.count(5)) == 2
+    return numbers.count(3) == 2 or numbers.count(5) == 2
 
 
 # 15. Write a Python program to find the largest odd value from a given array
@@ -163,7 +168,7 @@ def compute_sum_of_every_third(numbers):
 # 22. Write a Python program to check whether every element is a 3 or a 5 in a given array of integers.
 
 def check_element(numbers):
-    return numbers == [3 for _ in range(len(numbers))] or numbers == [5 for _ in range(len(numbers))]
+    return numbers.count(3) == len(numbers) or numbers.count(5) == len(numbers)
 
 
 # 23. Write a Python program to check whether a given value appears everywhere in a given array.
@@ -199,12 +204,10 @@ def contains_number(numbers):
 # later in a given array of integers.
 
 def check_in_array(numbers):
-    if 3 in numbers[numbers.index(2):] and numbers.index(2) <= numbers[numbers.index(2):].index(3):
+    if 3 in numbers[numbers.index(2):]:
         return True
     return False
 
-
-print(check_in_array([1,3,2,4]))
 
 # 27. Write a Python program to convert an array into an index hash.
 
