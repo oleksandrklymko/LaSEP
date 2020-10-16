@@ -219,7 +219,7 @@ def print_arr(arr):
 
 # 25. Write a Python program to check two non-negative integer values and return true if they have the same last digit.
 def check_two_non_negative(a, b):
-    if str(a)[-1] == str(b)[-1]:
+    if list(a)[-1] == list(b)[-1]:
         return True
     return False
 
@@ -311,6 +311,8 @@ def check(a, b):
         return b
 
 
+# 25
+
 # 34. Write a Python program to count the number of 5's in a given array.
 
 def count(list):
@@ -397,51 +399,51 @@ def check(x, y, z):
     return abs(x - y) == 1 and (abs(x - z) and abs(y - z)) >= 3
 
 
-#42. На зустріч один одному відповідно з міста А та міста Б рухається заєць та черепаха.
+# 42. На зустріч один одному відповідно з міста А та міста Б рухається заєць та черепаха.
 # Ввести з клавіатури відстань між містами, швидкість зайця та швидкість черепахи.
 # Обчислити на якій відстані від міста Б вони зустрінуться.
 
 distance_between_cities = int(input("Enter distance between cities: "))
 turtle_speed = int(input("Enter turtle speed: "))
 bunny_speed = int(input("Enter bunny speed: "))
-print((distance_between_cities/(turtle_speed+bunny_speed)) * turtle_speed)
+print((distance_between_cities / (turtle_speed + bunny_speed)) * turtle_speed)
 
-
-#44.Написати програму, яка визначає дату наступного дня, на основі сьогоднішньої дати.
+# 44.Написати програму, яка визначає дату наступного дня, на основі сьогоднішньої дати.
 
 from datetime import datetime, timedelta
+
 current_day = datetime.now()
 one_day = timedelta(1)
 print(current_day + one_day)
 
-
-#45. Написати программу, яка задає категорію та стаж працівника, а також ставку відповідно до категорії(1-ша категорія—3000, 2-га – 2000, 3-тя -- 1000).
+# 45. Написати программу, яка задає категорію та стаж працівника, а також ставку відповідно до категорії(1-ша категорія—3000, 2-га – 2000, 3-тя -- 1000).
 # Обчислити заробітну плату, враховуючи надбавку за стаж роботи(до 2 років—0%, від 2 до 5 – 10%, від 5 до 10 – 20%, більше 10—30% ) і зняття податку – 15%.
 categories = {1: 3000, 2: 2000, 3: 1000}
+
 
 def calculate_salary(category, experience):
     salary = categories[category]
     bonus = 0
     if experience in range(2):
         bonus = 0
-    elif experience in range(2,5):
+    elif experience in range(2, 5):
         bonus = 10
     elif experience in range(5, 10):
         bonus = 20
     if experience >= 10:
         bonus = 30
 
-    bonus = (salary * bonus)/100
+    bonus = (salary * bonus) / 100.0
     salary += bonus
-    commission = (salary * 15)/100
+    commission = (salary * 15) / 100.0
     salary -= commission
     print(salary)
 
 
-#46. Написати програму, яка із введеного користувачем цілого чотирьохзначного числа (наприклад 5141):
-#знаходить суму цифр цього числа (5141 це 5+1+4+1 = 11).
-#перевіряє чи є однакові цифри (двічі зустрічається цифра 1)
-#перевіряє чи сума двох перших цифр чотирьохзначного числа рівна двом наступним (5141 → 5+1 = 6 і 4+1 = 5 → суми першої та другої пар цифр даного числа різні)
+# 46. Написати програму, яка із введеного користувачем цілого чотирьохзначного числа (наприклад 5141):
+# знаходить суму цифр цього числа (5141 це 5+1+4+1 = 11).
+# перевіряє чи є однакові цифри (двічі зустрічається цифра 1)
+# перевіряє чи сума двох перших цифр чотирьохзначного числа рівна двом наступним (5141 → 5+1 = 6 і 4+1 = 5 → суми першої та другої пар цифр даного числа різні)
 
 def check(numbers):
     numbers = [int(number) for number in str(numbers)]
@@ -457,11 +459,12 @@ def check(numbers):
         print(f"Sum of first pair {numbers[:2]} doesn't equals Sum of second pair {numbers[2:]}")
 
 
-# 47. Написати програму, яка обчислює, скільки повинен заплатити водій за паркування автомобіля на стоянці протягом певного часу.
-# Користувач вводить наступні дані: час заїзду на стоянку (у годинах і хвилинах), час від’їзду, вартість однієї години паркування.
-# Водій платить за кожну повну годину. Також, здійснюється плата за перевищення користування стоянкою більше ніж на 10 хв., наприклад:
-# якщо хтось використав стоянку протягом 2 год. і 15 хв., то повинен заплатити за 3 год. В кінцевому результаті на екран необхідно вивести повідомлення про час
-# заїзду та виїзду авто, ціну за годину паркування і повну вартість.
+# 47. Написати програму, яка обчислює, скільки повинен заплатити водій за паркування автомобіля на стоянці протягом
+# певного часу. Користувач вводить наступні дані: час заїзду на стоянку (у годинах і хвилинах), час від’їзду,
+# вартість однієї години паркування. Водій платить за кожну повну годину. Також, здійснюється плата за перевищення
+# користування стоянкою більше ніж на 10 хв., наприклад: якщо хтось використав стоянку протягом 2 год. і 15 хв.,
+# то повинен заплатити за 3 год. В кінцевому результаті на екран необхідно вивести повідомлення про час заїзду та
+# виїзду авто, ціну за годину паркування і повну вартість.
 
 def parking_calulate(arrival_time, departure_time, price):
     arrival = [int(time) for time in arrival_time.split(':')]
@@ -469,6 +472,5 @@ def parking_calulate(arrival_time, departure_time, price):
     total_price = (departure[0] - arrival[0]) * price
     if (departure[1] - arrival[1]) >= 10:
         total_price += price
-    print("You arrive at {0} - your departure time - {1}. Total price: {2}".format(arrival_time, departure_time, total_price))
-
-
+    print("You arrive at {0} - your departure time - {1}. Total price: {2}".format(arrival_time, departure_time,
+                                                                                   total_price))
