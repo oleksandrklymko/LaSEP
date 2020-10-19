@@ -628,4 +628,5 @@ def calculate_parking(arrival_time, departure_time, price):
                                                                                    total_price))
     return total_price
 
+
 print(calculate_parking('15:20', '16:25', 10))
