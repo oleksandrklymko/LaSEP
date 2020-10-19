@@ -12,9 +12,10 @@ print(check_value(5, [1, 2, 3, 4, 5]))
 # The array length must be 1 or more.
 
 
-def check_number(numbers):
+def check_number(numbers, value=7):
     if numbers:
-        return numbers[0] == 7 and numbers[-1] == 7
+        return numbers[0] == value and numbers[-1] == value
+    return False
 
 
 print(check_number([7, 12, 100, 400, 7]))
@@ -23,11 +24,11 @@ print(check_number([7, 12, 100, 400, 7]))
 import random
 
 
-def two_random(numbers, number_of_elements):
+def two_random(numbers, number_of_elements_to_pick):
     print(f'Original array:\n{numbers}')
-    print(f'{number_of_elements} random elements from the array.')
+    print(f'{number_of_elements_to_pick} random elements from the array.')
     random.shuffle(numbers)
-    return numbers[:number_of_elements]
+    return numbers[:number_of_elements_to_pick]
 
 
 print(two_random([1, 2, 3, 4, 5], 3))
@@ -39,6 +40,7 @@ print(two_random([1, 2, 3, 4, 5], 3))
 def check_first_and_last(numbers):
     if numbers:
         return numbers[0] == numbers[-1]
+    return False
 
 
 print(check_first_and_last([1, 2, 3, 4, 5, 1]))
@@ -97,6 +99,7 @@ print(remove_duplicate_v2([1, 2, 3, 2, 2, 3, 1]))
 def check_same(numbers1, numbers2):
     if numbers1 and numbers2:
         return numbers1[0] == numbers2[0] or numbers1[-1] == numbers2[-1]
+    return False
 
 
 print(check_same([1, 2, 3, 4, 5], [1, 2, 3, 4, 5]))
@@ -150,6 +153,15 @@ def rotated_left(numbers):
 print(rotated_left([1, 2, 3, 4, 5]))
 
 
+def rotated_left_v2(numbers, n):
+    for i in range(n):
+        numbers.append(numbers.pop(0))
+    return numbers
+
+
+print(rotated_left_v2([1, 2, 3], 1))
+
+
 # 11. Write a Python program to create a new array with the elements in reverse order
 # from a given an array of integers length 3.
 
@@ -158,6 +170,16 @@ def reverse_order(numbers):
 
 
 print(reverse_order([1, 2, 3, 4, 5]))
+
+
+def reverse_order_v2(numbers):
+    reversed = []
+    for number in numbers:
+        reversed.insert(0, number)
+    return reversed
+
+
+print(reverse_order_v2([1, 2, 3, 4, 5]))
 
 
 # 12. Write a Python program to find the larger between the first and last elements of a given array of integers
@@ -182,6 +204,16 @@ def concat(numbers1, numbers2):
 
 
 print(concat([5, 4, 3], [1, 2, 3]))
+
+
+def concat_v2(numbers1, numbers2):
+    numbers = numbers1[:]
+    for number in numbers2:
+        numbers.append(number)
+    return numbers
+
+
+print(concat_v2([5, 4, 3], [1, 2, 3]))
 
 
 # 14. Write a Python program to check if a given array of integers contains 3 twice, or 5 twice.
@@ -224,18 +256,33 @@ print(sum_of_even([1, 2, 3, 4, 5, 6, 7]))
 # 18. Write a Python program to find the difference between the largest and smallest values of a given array of
 # integers.
 
-def difference_between_maxmin(numbers):
+def difference_between_max_min(numbers):
     return max(numbers) - min(numbers)
 
 
-print(difference_between_maxmin([50, 20, 30, 10, 5]))
+print(difference_between_max_min([50, 20, 30, 10, 5]))
+
+
+def difference_between_max_min_v2(numbers):
+    numbers_copy = numbers[:]
+    sorted_numbers = []
+    while numbers_copy:
+        min_number = numbers_copy[0]
+        for number in numbers_copy:
+            if number < min_number:
+                min_number = number
+        numbers_copy.remove(min_number)
+        sorted_numbers.append(min_number)
+    return sorted_numbers[-1] - sorted_numbers[0]
+
+
+print(difference_between_max_min_v2([20, 30, 40, 50, 100, 20, 5, 10]))
 
 
 # 19. Write a Python program to compute the average values of a given array of except the largest and smallest values.
 
 def compute_avg(numbers):
-    numbers.sort()
-    return sum(numbers[1:-1]) / len(numbers[1:-1])
+    return sum(sorted(numbers[1:-1])) / len(numbers[1:-1])
 
 
 print(compute_avg([50, 30, 50, 10, 20, 30]))
@@ -244,8 +291,10 @@ print(compute_avg([50, 30, 50, 10, 20, 30]))
 # 20. Write a Python program to compute the sum of the numbers of a given array except for the number 17 and numbers
 # that come immediately after a 17.
 
-def compute_sum(numbers):
-    return sum([number for number in numbers if number < 17])
+def compute_sum(numbers, value=17):
+    if value in numbers:
+        return sum(numbers[:numbers.index(value)])
+    return sum(numbers)
 
 
 print(compute_sum([10, 20, 30, 17]))
@@ -262,17 +311,17 @@ print(compute_sum_of_every_third([1, 2, 3, 4, 5, 6]))
 # 22. Write a Python program to check whether every element is a 3 or a 5 in a given array of integers.
 
 def check_element(numbers):
-    return numbers.count(3) == len(numbers) or numbers.count(5) == len(numbers)
+    return numbers.count(3) + numbers.count(5) == len(numbers)
 
 
-print(check_element([3, 3, 3, 3, 3]))
+print(check_element([5, 3, 3, 5, 3]))
 
 
 # 23. Write a Python program to check whether a given value appears everywhere in a given array.
 # A value is "everywhere" in an array if it presents for every pair of adjacent elements in the array.
 
 def check_if_appears(numbers, number):
-    for i in range(len(numbers)):
+    for i in range(0, len(numbers), 2):
         if number not in numbers[i:i + 2]:
             return False
     return True
@@ -287,10 +336,11 @@ def contains_numbers(numbers, num1=3, num2=5):
     is_next_three, is_next_five = None, None
     if num1 in numbers:
         num1_index = numbers.index(num1)
-        is_next_three = num1 == numbers[num1_index + 1]
+        is_next_three = num1 in numbers[num1_index + 1:] and num1 == numbers[num1_index + 1]
+
     if num2 in numbers:
         num2_index = numbers.index(num2)
-        is_next_five = num2 == numbers[num2_index + 1]
+        is_next_five = num2 in numbers[num2_index + 1:] and num2 == numbers[num2_index + 1]
 
     if is_next_three and is_next_five:
         return False
@@ -304,12 +354,14 @@ print(contains_numbers([1, 2, 3, 3, 4]))
 # 25. Write a Python program to check whether a given array of integers contains two 6's next to each other,
 # or there are two 6's separated by one element, such as [6, 2, 6].
 
-def contains_number(numbers):
-    index_of_six = numbers.index(6)
-    return numbers[index_of_six] == numbers[index_of_six + 1] or numbers[index_of_six] == numbers[index_of_six + 2]
+def contains_number(numbers, value=6):
+    index_of_six = numbers.index(value)
+    if len(numbers[index_of_six + 1:]) == 2 and numbers[index_of_six + 2] == value:
+        return True
+    return False
 
 
-print(contains_number([6, 2, 6]))
+print(contains_number([6, 2, 2]))
 
 
 # 26. Write a Python program to check whether there is a 2 in the array with a 3 somewhere
@@ -327,10 +379,10 @@ print(check_in_array([1, 2, 3, 4]))
 # 27. Write a Python program to convert an array into an index hash.
 
 def convert_to_dict(numbers):
-    return {k: None for k in numbers}
+    return {k: numbers.index(k) for k in numbers}
 
 
-print(convert_to_dict([1, 2, 3, 4, 5, 6]))
+print(convert_to_dict([5, 2, 3, 8, 5, 6]))
 
 
 # 28. Write a Python program to find most occurred item in an given array.
@@ -342,6 +394,17 @@ def find_most_occurred(numbers):
 
 
 print(find_most_occurred([10, 20, 30, 10, 20, 30, 30, 30]))
+
+
+def find_most_occurred_v2(numbers):
+    most_frequent = numbers[0]
+    for number in set(numbers):
+        if numbers.count(most_frequent) < numbers.count(number):
+            most_frequent = number
+    return most_frequent
+
+
+print(find_most_occurred_v2([1, 2, 3, 4, 5, 5, 1, 1, 5, 5, 5, 5]))
 
 
 # 29. Write a Python program to check whether all items are identical in a given array.
@@ -443,25 +506,17 @@ print(compress_array([1, 0, 2, 0, 5, 3, 5]))
 # 35. Convert the array so that the first go all negative elements, and then positive (0 is considered positive)
 
 def convert_array(numbers):
-    converted_numbers = []
-    while numbers:
-        min = numbers[0]
-        for number in numbers:
-            if number < min:
-                min = number
-        converted_numbers.append(min)
-        numbers.remove(min)
-    return converted_numbers
+    converted_list = []
+    for number in numbers:
+        if number < 0:
+            converted_list.append(number)
+    for number in numbers:
+        if number >= 0:
+            converted_list.append(number)
+    return converted_list
 
 
 print(convert_array([-20, -10, 0, 30, 20, 10]))
-
-
-def convert_array_v2(numbers):
-    return sorted(numbers)
-
-
-print(convert_array_v2([-20, -10, 0, 30, 20, 10]))
 
 
 # 36. Write a program where a need to counts the number of times a number appear in an array.
@@ -476,12 +531,12 @@ print(count_numbers([1, 2, 3, 4, 1, 1, 1, 1]))
 
 # 37. In a two-dimensional array of order M and N, swap the specified columns.
 
-def swap_columns(numbers, column):
-    numbers[0][column], numbers[1][column] = numbers[1][column], numbers[0][column]
+def swap_columns(numbers, nrow, ncloumn, mrow, mcolumn):
+    numbers[nrow][ncloumn], numbers[mrow][mcolumn] = numbers[mrow][mcolumn], numbers[nrow][ncloumn]
     return numbers
 
 
-print(swap_columns([[1, 2, 3], [4, 5, 6]], 1))
+print(swap_columns([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]], 0, 2, 4, 3))
 
 
 # 38. Given the single-mass array with predefined values with a size of 10 items.
@@ -495,6 +550,7 @@ def repeated_numbers(numbers):
 
 print(repeated_numbers([1, 2, 3, 4, 5, 1, 2, 2, 3, 10]))
 
+
 # 39. Given the single-mass array with predefined values with a size of 10 items.
 # Show on the screen array, and find the value that is the smallest nonpaired number.
 
@@ -502,7 +558,9 @@ def find_smallest_nonpaired(numbers):
     print(numbers)
     return min(number for number in numbers if number % 2 != 0)
 
-print(find_smallest_nonpaired([1,2,3,4,5]))
+
+print(find_smallest_nonpaired([1, 2, 3, 4, 5]))
+
 
 # 40. Given the single-mass array. Cyclically shift the array on the K elements, on the right or left side.
 
@@ -512,10 +570,26 @@ def right_shift(numbers, k):
         return numbers[len(numbers) - k:] + numbers[:len(numbers) - k]
 
 
+def right_shift_v2(numbers, k):
+    print("Left Shift: ")
+    numbers_copy = numbers[:]
+    for _ in range(k):
+        numbers_copy.insert(0, numbers_copy.pop())
+    return numbers_copy
+
+
 def left_shift(numbers, k):
     print("Left Shift: ")
     for _ in range(k):
         return numbers[k:] + numbers[:k]
+
+
+def left_shift_v2(numbers, k):
+    print("Left Shift: ")
+    numbers_copy = numbers[:]
+    for _ in range(k):
+        numbers_copy.append(numbers_copy.pop(0))
+    return numbers_copy
 
 
 def shift_array(numbers, k):
@@ -524,4 +598,11 @@ def shift_array(numbers, k):
     print(left_shift(numbers, k))
 
 
-shift_array([1,2,3,4,5,6], 2)
+def shift_array_v2(numbers, k):
+    print(f"Original array: {numbers}")
+    print(right_shift_v2(numbers, k))
+    print(left_shift_v2(numbers, k))
+
+
+shift_array([1, 2, 3, 4, 5, 6], 2)
+shift_array_v2([1, 2, 3, 4, 5, 6], 2)
