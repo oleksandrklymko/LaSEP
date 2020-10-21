@@ -264,16 +264,14 @@ print(difference_between_max_min([50, 20, 30, 10, 5]))
 
 
 def difference_between_max_min_v2(numbers):
-    numbers_copy = numbers[:]
-    sorted_numbers = []
-    while numbers_copy:
-        min_number = numbers_copy[0]
-        for number in numbers_copy:
-            if number < min_number:
-                min_number = number
-        numbers_copy.remove(min_number)
-        sorted_numbers.append(min_number)
-    return sorted_numbers[-1] - sorted_numbers[0]
+    max = numbers[0]
+    min = numbers[0]
+    for number in numbers:
+        if number > max:
+            max = number
+        if number < min:
+            min = number
+    return max - min
 
 
 print(difference_between_max_min_v2([20, 30, 40, 50, 100, 20, 5, 10]))
@@ -336,11 +334,21 @@ def contains_numbers(numbers, num1=3, num2=5):
     is_next_three, is_next_five = None, None
     if num1 in numbers:
         num1_index = numbers.index(num1)
-        is_next_three = num1 in numbers[num1_index + 1:] and num1 == numbers[num1_index + 1]
+        is_three_in_list = num1 in numbers[num1_index + 1:]
+        is_next_three = is_three_in_list and num1 == numbers[num1_index + 1]
+        while not is_next_three and is_three_in_list:
+            num1_index = numbers.index(num1, num1_index + 1)
+            is_three_in_list = num1 in numbers[num1_index + 1:]
+            is_next_three = is_three_in_list and num1 == numbers[num1_index + 1]
 
     if num2 in numbers:
         num2_index = numbers.index(num2)
-        is_next_five = num2 in numbers[num2_index + 1:] and num2 == numbers[num2_index + 1]
+        is_five_in_list = num2 in numbers[num2_index + 1:]
+        is_next_five = is_five_in_list and num2 == numbers[num2_index + 1]
+        while not is_next_five and is_five_in_list:
+            num2_index = numbers.index(num2, num2_index + 1)
+            is_five_in_list = num2 in numbers[num2_index + 1:]
+            is_next_five = is_five_in_list and num2 == numbers[num2_index + 1]
 
     if is_next_three and is_next_five:
         return False
@@ -348,17 +356,26 @@ def contains_numbers(numbers, num1=3, num2=5):
     return is_next_three or is_next_five
 
 
-print(contains_numbers([1, 2, 3, 3, 4]))
+print(contains_numbers([1, 2, 3, 4, 5, 6, 7, 5, 5]))
 
 
 # 25. Write a Python program to check whether a given array of integers contains two 6's next to each other,
 # or there are two 6's separated by one element, such as [6, 2, 6].
 
 def contains_number(numbers, value=6):
-    index_of_six = numbers.index(value)
-    if len(numbers[index_of_six + 1:]) == 2 and numbers[index_of_six + 2] == value:
-        return True
-    return False
+    if value in numbers:
+        index_of_six = numbers.index(value)
+        is_six_in_list = value in numbers[index_of_six + 1:]
+        next_or_separated = numbers[index_of_six + 1] == value or numbers[index_of_six + 2] == value
+        is_six_next_or_separated = is_six_in_list and next_or_separated
+        while not is_six_next_or_separated and is_six_in_list:
+            index_of_six = numbers.index(value, index_of_six + 1)
+            is_six_in_list = value in numbers[index_of_six + 1:]
+            next_or_separated = numbers[index_of_six + 1] == value or numbers[index_of_six + 2] == value
+            is_six_next_or_separated = is_six_in_list and next_or_separated
+        return is_six_next_or_separated
+    else:
+        return False
 
 
 print(contains_number([6, 2, 2]))
@@ -519,6 +536,12 @@ def convert_array(numbers):
 print(convert_array([-20, -10, 0, 30, 20, 10]))
 
 
+def convert_array_v2(numbers):
+    return [number for number in numbers if number < 0] + [number for number in numbers if number >= 0]
+
+
+print(convert_array_v2([-20, -10, 0, 30, 20, 10]))
+
 # 36. Write a program where a need to counts the number of times a number appear in an array.
 
 def count_numbers(numbers):
@@ -531,12 +554,15 @@ print(count_numbers([1, 2, 3, 4, 1, 1, 1, 1]))
 
 # 37. In a two-dimensional array of order M and N, swap the specified columns.
 
-def swap_columns(numbers, nrow, ncloumn, mrow, mcolumn):
-    numbers[nrow][ncloumn], numbers[mrow][mcolumn] = numbers[mrow][mcolumn], numbers[nrow][ncloumn]
-    return numbers
+def swap_columns(numbers, nrow, mrow):
+    if len(numbers[nrow]) == len(numbers[mrow]):
+        for i in range(len(numbers[nrow])):
+            numbers[nrow][i], numbers[mrow][i] = numbers[mrow][i], numbers[nrow][i]
+        return numbers
+    return 'Different size'
 
 
-print(swap_columns([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]], 0, 2, 4, 3))
+print(swap_columns([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]], 0, 1))
 
 
 # 38. Given the single-mass array with predefined values with a size of 10 items.
