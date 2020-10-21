@@ -299,6 +299,13 @@ def check_two_non_negative_v2(number1, number2):
 print(check_two_non_negative_v2(40, 40))
 
 
+def check_two_non_negative_v3(number1, number2):
+    return number1 % 10 == number2 % 10
+
+
+print(check_two_non_negative_v3(43, 3))
+
+
 # 26. Write a Python program to retrieve the total marks where subject name and marks of a student stored in a hash.
 
 def count_sum_of_marks(subjects):
