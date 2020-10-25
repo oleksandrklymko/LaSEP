@@ -15,9 +15,12 @@
 # Довідка для студента про його рейтинг та розмір стипендії
 
 
+from datetime import date
+
 from student import Student
 from book import Book
 from room import Room
+from library import Library
 from group import Group
 from lecturer import Lecturer
 
@@ -30,14 +33,17 @@ ivan = Lecturer('Ivan', 'Omelan', 'Web design')
 oleh = Lecturer('Oleh', 'Kozak', 'IT technologies')
 
 book1 = Book('Lutz', 'How to Learn Python', 'tech', 120)
+book2 = Book('Brown', 'How to think like and CS', 'tech', 50)
+book3 = Book('Martin', 'ASdsad', 'tech', 10)
+book4 = Book('Anton', 'dsada to Learn Python', 'tech', 120)
+book5 = Book('Boris', 'Hodsw to Learn Python', 'tech', 50)
+book6 = Book('Hella', 'dsdsds to Learn Python', 'tech', 10)
+book7 = Book('Adam', 'Meh to Learn Python', 'tech', 80)
+book8 = Book('Sara', 'Pyro to Learn Python', 'tech', 90)
 
-kn42z = Group('kn-42z')
-kn42z.add_to_the_group(alex)
-kn42z.add_to_the_group(alex2)
-kn42z.add_to_the_group(oleksii)
-
-alex.borrow_book(book1)
-Book.show_all_debtors()
+library = Library()
+library.borrow_book(book2, alex)
+library.show_all_debtors()
 
 
 

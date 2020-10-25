@@ -1,4 +1,4 @@
-from book import Book
+
 from datetime import datetime
 
 
@@ -24,21 +24,6 @@ class Student:
 
     def __repr__(self):
         return self.first_name + ' ' + self.last_name
-
-    def borrow_book(self, book, date=datetime.today()):
-        if book in Book.borrowed_books or self.credit >= 100:
-            return False
-        self.rented_books.append((book, date))
-        Book.borrowed_books.append((book, date))
-        return True
-
-    def return_book(self, book):
-        if book in self.rented_books:
-            self.rented_books.remove(book)
-            self.credit += book.price
-            Book.borrowed_books.remove(book)
-            return True
-        return False
 
     @classmethod
     def show_students_with_rating_from_x_to_y(cls, x, y):

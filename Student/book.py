@@ -1,10 +1,5 @@
-from student import Student
-from datetime import timedelta
-
-
 class Book:
     books = []
-    borrowed_books = []
 
     def __init__(self, author, title, genre, price):
         self.author = author
@@ -16,14 +11,6 @@ class Book:
 
     def __repr__(self):
         return self.title + ' by ' + self.author
-
-    @classmethod
-    def show_all_debtors(cls):
-        for student in Student.students:
-            if student.rented_books:
-                for book in student.rented_books:
-                    if book[1] <= book1[1] + timedelta(365):
-                        print(student, student.rented_books, student.credit)
 
 
 if __name__ == "__main__":
