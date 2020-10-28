@@ -10,16 +10,15 @@ class Group:
     def __repr__(self):
         return self.group_name
 
-    def add_to_the_group(self, student):
+    def add_student(self, student):
         for i in range(len(Group.groups)):
             if student in Group.groups[i].members:
                 return False
-        else:
-            self.members.append(student)
-            student.group = self.group_name
-            return True
+        self.members.append(student)
+        student.group = self.group_name
+        return True
 
-    def remove_from_the_group(self, student):
+    def remove_student(self, student):
         if student in self.members:
             self.members.remove(student)
             return True
@@ -30,3 +29,13 @@ class Group:
             self.group_leader = student
             return True
         return False
+
+    @classmethod
+    def show_all_groups_members(cls):
+        for group in cls.groups:
+            print(group)
+            for member in group.members:
+                if member == group.group_leader:
+                    print(f'\t{member} - Group Leader')
+                else:
+                    print(f'\t{member}')

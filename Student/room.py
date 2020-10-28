@@ -9,15 +9,14 @@ class Room:
     def __repr__(self):
         return str(self.room_number)
 
-    def settle_in_a_room(self, student):
-        if len(self.members) >= 3:
-            return False
-        else:
-            student.room_number = self.room_number
-            self.members.append(student)
-            return True
+    def settle(self, student):
+        for i in range(len(Room.rooms)):
+            if student in Room.rooms[i].members or len(self.members) >= 3:
+                return False
+        self.members.append(student)
+        return True
 
-    def evict_from_the_room(self, student):
+    def evict(self, student):
         if student in self.members:
             self.members.remove(student)
             return True
