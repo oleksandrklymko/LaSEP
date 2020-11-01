@@ -9,6 +9,5 @@ class Book:
         self.book_id = self.__class__.book_id
         self.__class__.book_id += 1
 
-
     def __repr__(self):
         return self.title + ' by ' + self.author

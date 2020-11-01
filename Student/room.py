@@ -1,23 +1,26 @@
 class Room:
-    rooms = []
 
     def __init__(self, room_number):
         self.room_number = room_number
         self.members = []
-        Room.rooms.append(self)
+        self.campus = None
 
     def __repr__(self):
-        return str(self.room_number)
+        return 'Room №' + str(self.room_number)
 
     def settle(self, student):
-        for i in range(len(Room.rooms)):
-            if student in Room.rooms[i].members or len(self.members) >= 3:
+        for room in self.campus.rooms:
+            if student in room.members:
                 return False
-        self.members.append(student)
-        return True
+        if len(self.members) < 3:
+            self.members.append(student)
+            student.room_number = self
+            return True
+        return False
 
     def evict(self, student):
         if student in self.members:
             self.members.remove(student)
+            student.room_number = None
             return True
         return False

@@ -1,4 +1,3 @@
-from student import Student
 from datetime import datetime, timedelta
 
 
@@ -12,6 +11,7 @@ class Library:
     def __init__(self):
         self.books = []
         self.borrowed_books = []
+        self.library_visitors = []
 
     def add_book(self, book):
         if book in self.books:
@@ -25,6 +25,7 @@ class Library:
         student.rented_books.append((book, date))
         student.credit += book.price
         self.borrowed_books.append(book)
+        self.library_visitors.append(student)
         return True
 
     def accept_book_back(self, book, student):
@@ -36,9 +37,8 @@ class Library:
                 return True
         return False
 
-
     def show_all_debtors(self):
-        for student in Student.students:
+        for student in self.library_visitors:
             if student.rented_books:
                 books_that_not_returned_more_then_year = []
                 for book in student.rented_books:
@@ -48,5 +48,3 @@ class Library:
                 if books_that_not_returned_more_then_year:
                     print(f"unreturned more then one year: {books_that_not_returned_more_then_year}", end=', ')
                 print(f'amount of unreturned books: {len(student.rented_books)}, student credit: {student.credit}')
-
-
