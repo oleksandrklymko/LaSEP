@@ -40,11 +40,11 @@ class Library:
     def show_all_debtors(self):
         for student in self.library_visitors:
             if student.rented_books:
-                books_that_not_returned_more_then_year = []
+                books_not_returned_more_then_year = []
                 for book in student.rented_books:
                     if datetime.date(datetime.now()) >= book[1] + timedelta(365):
-                        books_that_not_returned_more_then_year.append(book[0])
+                        books_not_returned_more_then_year.append(book[0])
                 print(student, end=', ')
-                if books_that_not_returned_more_then_year:
-                    print(f"unreturned more then one year: {books_that_not_returned_more_then_year}", end=', ')
+                if books_not_returned_more_then_year:
+                    print(f"unreturned more then one year: {books_not_returned_more_then_year}", end=', ')
                 print(f'amount of unreturned books: {len(student.rented_books)}, student credit: {student.credit}')
