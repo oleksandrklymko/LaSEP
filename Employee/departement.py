@@ -1,5 +1,7 @@
+from datetime import datetime, timedelta
+
+
 class Department:
-    departments = []
 
     def __init__(self, title, title_abbreviation):
         self.title = title
@@ -7,21 +9,24 @@ class Department:
         self.members = []
         self.members_on_vacation = []
         self.leader = None
-        Department.departments.append(self)
+        self.enterprise = None
 
     def __repr__(self):
         return self.title
 
+    def check_if_employee_in_members(self, employee):
+        return employee in self.members
+
     def add_employee(self, employee):
-        for i in range(len(Department.departments)):
-            if employee in Department.departments[i].members or len(self.members) >= 20:
+        for department in self.enterprise.departments:
+            if employee.enterprise != self.enterprise or employee in department.members or len(self.members) >= 20:
                 return False
-            self.members.append(employee)
-            employee.department = self
-            return True
+        self.members.append(employee)
+        employee.department = self
+        return True
 
     def remove_employee(self, employee):
-        if employee in self.members:
+        if self.check_if_employee_in_members(employee):
             self.members.remove(employee)
             employee.department = None
             if self.leader == employee:
@@ -30,19 +35,22 @@ class Department:
         return False
 
     def change_leader(self, employee):
-        if employee in self.members:
+        if self.check_if_employee_in_members(employee):
             self.leader = employee
             return True
         return False
 
-    @classmethod
-    def show_information_about_departments(cls):
-        for department in Department.departments:
-            print(f'Leader: {department.leader}, total amount of employees: {len(department.members)}')
+    def increase_employee_salary(self, employee):
+        if self.check_if_employee_in_members(employee):
+            if datetime.date(datetime.today()) >= employee.job_start_date + timedelta(365):
+                employee.salary = (employee.salary * 1.2 / 100) + employee.salary
+                return True
+        return False
 
-
-def show_department_employees(department):
-    if department in Department.departments:
-        print(f'{department}:')
-        for member in department.members:
-            print(f'\t{member}')
+    def show_information_about_vacations(self):
+        for employee in self.members:
+            if employee.vacations:
+                days_in_vacation = employee.current_job.vacation_days - employee.vacation_days
+                print(f'{employee} , days in vacation - {days_in_vacation}: ')
+                for start_date, end_date in employee.vacations:
+                    print(f'\tFrom {start_date} to {end_date}')

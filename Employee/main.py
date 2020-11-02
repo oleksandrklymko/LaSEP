@@ -1,22 +1,32 @@
+from enterprise import Enterprise
+from departement import Department
+from job import Job
 from employee import Employee
-from departement import Department, show_department_employees
-from job_position import Job
+
 from datetime import date
 
+lasoft = Enterprise('LaSoft')
 
+webdev = Department('Web Development', 'WebDev')
 
-alex = Employee('Alex', 'Klymko', 'Vasylovich', 21, '14.08.1999', 'Zhovkva', 'Dovbusha 73')
-alex2 = Employee('Bohdan', 'Klymko', 'Vasylovich', 21, '14.08.1999', 'Zhovkva', 'Dovbusha 73')
-dep1 = Department('LaSoft', 'LS')
-programmer = Job('Programmer', 9000, 21)
-devops = Job('DevOps', 12000, 14)
-dep1.add_employee(alex)
-dep1.add_employee(alex2)
-alex.change_job_position(programmer)
-alex.take_vacation(date(2020, 11, 12))
-show_department_employees(dep1)
+sofware = Job('Software Engineer', 20000, 14)
+
+alex = Employee('Alex', 'Klymko', 'Vasylovich', 21, '14.08.1999', 'Lviv', 'Bla')
+
+lasoft.add_department(webdev)
+lasoft.add_employee(alex)
+webdev.add_employee(alex)
+webdev.change_leader(alex)
+lasoft.add_job_position(sofware)
+alex.change_job(sofware, date(2019, 11, 1))
+alex.take_vacation(date(2020, 10, 25))
+print(alex.vacations)
+lasoft.show_department_employees(webdev)
+
+webdev.increase_employee_salary(alex)
 alex.show_information()
-dep1.change_leader(alex)
 
-Department.show_information_about_departments()
-Employee.show_information_about_vacations()
+webdev.show_information_about_vacations()
+
+
+
