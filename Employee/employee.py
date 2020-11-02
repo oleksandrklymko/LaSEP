@@ -40,8 +40,8 @@ class Employee:
     def take_vacation(self, end, begin=datetime.date(datetime.today())):
         days = abs(int(str(end - begin).split(' ')[0]))
         members_on_vacation = self.department.members_on_vacation
-        if not self.department or days > self.vacation_days or self in members_on_vacation or len(
-                members_on_vacation) >= 5:
+        vacation_fit_in_days = days > self.vacation_days
+        if not self.department or vacation_fit_in_days or self in members_on_vacation or len(members_on_vacation) >= 5:
             return False
         self.vacations.append((str(begin), str(end)))
         members_on_vacation.append(self)

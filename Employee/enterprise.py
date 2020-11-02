@@ -8,11 +8,11 @@ class Enterprise:
     def __repr__(self):
         return self.title
 
-    def check_if_department_already_added(self, department):
+    def __check_if_department_already_added(self, department):
         return department in self.departments
 
     def add_department(self, department):
-        if self.check_if_department_already_added(department):
+        if self.__check_if_department_already_added(department):
             return False
         self.departments.append(department)
         department.enterprise = self
@@ -36,7 +36,7 @@ class Enterprise:
             print(f'Leader: {department.leader}, total amount of employees: {len(department.members)}')
 
     def show_department_employees(self, department):
-        if self.check_if_department_already_added(department):
+        if self.__check_if_department_already_added(department):
             print(f'{department} employees:')
             for employee in department.members:
                 print(f'\t{employee}')
