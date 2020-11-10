@@ -52,6 +52,14 @@ class Airport:
         if crew_is_full and more_then_half_places_sold and pilot_have_3_days_delay:
             flight.pilot.last_flight = flight.departure
             self.history_of_flights[flight] = flight.taken_places
+            self.currently_on_flight.append(flight.pilot)
+            self.currently_on_flight.append(flight.captain)
+            for member in self.stewardesses:
+                self.currently_on_flight.append(member)
+            duration = flight.destination_time - flight.departure_time
+            days, seconds = duration.days, duration.seconds
+            hours = days * 24 + seconds // 3600
+            flight.plane.hours_worked += hours
             return True
         else:
             return False
@@ -115,3 +123,7 @@ class Airport:
     def show_info_about_successful_flights(self):
         for flight in self.history_of_flights:
             print(flight.departure_time.date(), flight.flight_id, flight.plane, flight.plane.model, flight.taken_places)
+
+    def show_all_stewardesses(self):
+        for stewardess in self.stewardesses:
+            print(stewardess, stewardess.sname, stewardess.address, stewardess.employee_id)
