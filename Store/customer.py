@@ -1,4 +1,4 @@
-from module import buy_products, add_product
+from module import buy_products
 from datetime import datetime
 
 class Customer:
@@ -11,8 +11,8 @@ class Customer:
     def __repr__(self):
         return self.name
 
-    def buy_products(self, shop, *args, date=datetime.today()):
+    def buy_products(self, shop, date=datetime.today(), *args, ):
         bought_products = buy_products(self, shop, *args)
         if bought_products:
-            shop.sales_history.append((len(shop.sales_history)+1, str(date.date()), bought_products))
+            shop.sales_history.append((len(shop.sales_history)+1, date, bought_products))
 

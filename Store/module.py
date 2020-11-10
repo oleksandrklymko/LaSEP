@@ -1,6 +1,3 @@
-from datetime import datetime
-
-
 def add_product(customer, product, quantity):
     if product in customer.products:
         customer.products[product] += quantity
