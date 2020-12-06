@@ -1,0 +1,13 @@
+{% extends 'departments/base.html' %}
+
+{% block content %}
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="Create employee">
+    </form>
+    <a href="{% url 'index' %}">Back to departments</a>
+</div>
+
+{% endblock %}

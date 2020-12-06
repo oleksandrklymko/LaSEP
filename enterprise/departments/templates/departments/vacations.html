@@ -1,0 +1,26 @@
+{% extends 'departments/base.html' %}
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'add_vacation' %}">New vacation</a>
+    <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Total days in vacations</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for employee in employees %}
+      <tr>
+        <td>{{ employee.id }}</td>
+        <td><a href="{% url 'vacations_info' employee.id %}">{{ employee }}</a></td>
+        <td>{{ employee.days_on_vacation }}</td>
+      </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% endblock %}
