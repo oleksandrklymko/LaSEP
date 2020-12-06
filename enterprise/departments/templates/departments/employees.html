@@ -1,0 +1,28 @@
+{% extends 'departments/base.html' %}
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'add_employee' %}">Add employee</a>
+    <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Job</th>
+      <th scope="col">Salary</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for employee in employees %}
+    <tr>
+        <td>{{ employee.id }}</td>
+        <td>{{ employee }}</td>
+        <td>{{ employee.job }}</td>
+        <td>{{ employee.calculate_salary }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% endblock %}

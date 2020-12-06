@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Departments{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'departments/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'departments/css/main.css' %}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{% url 'index' %}">Departments</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-link" href="{% url 'employees' %}">Employees</a>
+      <a class="nav-link" href="{% url 'vacations' %}">Vacations</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <ol class="breadcrumb my-4">
+    {% block breadcrumb %}
+        <li class="breadcrumb-item">Departments</li>
+    {% endblock %}
+  </ol>
+  {% block content %}
+  {% endblock %}
+</div>
+
+</body>
+</html>

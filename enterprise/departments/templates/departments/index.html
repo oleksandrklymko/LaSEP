@@ -1,0 +1,26 @@
+{% extends 'departments/base.html' %}
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'create_department' %}">Create new department</a>
+    <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Department</th>
+      <th scope="col">Head of department</th>
+      <th scope="col">Amount of employees</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for department in departments %}
+    <tr>
+      <td><a href="{% url 'department_members' department.id %}">{{ department.title }}</a></td>
+      <td>{{ department.head_of_department }}</td>
+      <td>{{ department.members.count  }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% endblock %}
